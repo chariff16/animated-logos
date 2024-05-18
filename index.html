@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hero Section with Moving Logos</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f0f0f0;
+      }
+
+      .hero {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      .logo {
+        width: 100px;
+        height: 100px;
+        margin: 20px;
+        position: absolute;
+        transition: transform 0.1s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero">
+      <img src="logo1.png" alt="Logo 1" class="logo" id="logo1" />
+      <img src="logo2.png" alt="Logo 2" class="logo" id="logo2" />
+      <img src="logo3.png" alt="Logo 3" class="logo" id="logo3" />
+      <!-- Add more logos as needed -->
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const logos = document.querySelectorAll(".logo");
+
+        document.addEventListener("mousemove", (event) => {
+          const { clientX, clientY } = event;
+          logos.forEach((logo) => {
+            moveLogo(logo, clientX, clientY);
+          });
+        });
+
+        const moveLogo = (logo, mouseX, mouseY) => {
+          const rect = logo.getBoundingClientRect();
+          const logoCenterX = rect.left + rect.width / 2;
+          const logoCenterY = rect.top + rect.height / 2;
+
+          const offsetX = (mouseX - logoCenterX) / 20;
+          const offsetY = (mouseY - logoCenterY) / 20;
+
+          logo.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+        };
+      });
+    </script>
+  </body>
+</html>
