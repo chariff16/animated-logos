@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Moving Logos</title>
+    <link href="./output.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .logo {
+        @apply absolute transition-transform duration-100;
+        width: 100px;
+        height: 100px;
+        margin: 20px;
+      }
+    </style>
+  </head>
+  <body class="flex items-center justify-center h-screen bg-gray-200">
+    <div class="relative flex items-center justify-center w-full h-full">
+      <img src="logo1.png" alt="Logo 1" class="logo" id="logo1" />
+      <img src="logo2.png" alt="Logo 2" class="logo" id="logo2" />
+      <img src="logo3.png" alt="Logo 3" class="logo" id="logo3" />
+      <!-- Add more logos as needed -->
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const logos = document.querySelectorAll(".logo");
+
+        document.addEventListener("mousemove", (event) => {
+          const { clientX, clientY } = event;
+          logos.forEach((logo) => {
+            moveLogo(logo, clientX, clientY);
+          });
+        });
+
+        const moveLogo = (logo, mouseX, mouseY) => {
+          const rect = logo.getBoundingClientRect();
+          const logoCenterX = rect.left + rect.width / 2;
+          const logoCenterY = rect.top + rect.height / 2;
+
+          const offsetX = (mouseX - logoCenterX) / 20;
+          const offsetY = (mouseY - logoCenterY) / 20;
+
+          logo.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+        };
+      });
+    </script>
+  </body>
+</html>
